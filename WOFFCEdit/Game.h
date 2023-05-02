@@ -30,7 +30,7 @@ public:
 	// Basic game loop
 	void Tick(InputCommands * Input);
 	void Render();
-
+	int MousePicking(int select);
 	// Rendering helpers
 	void Clear();
 
@@ -71,6 +71,7 @@ private:
 
 	//functionality
 	float								m_movespeed;
+	RECT                                m_ScreenDimensions;
 
 	//camera
 	DirectX::SimpleMath::Vector3		m_camPosition;
@@ -125,7 +126,8 @@ private:
     DirectX::SimpleMath::Matrix                                             m_world;
     DirectX::SimpleMath::Matrix                                             m_view;
     DirectX::SimpleMath::Matrix                                             m_projection;
-
+	float width1;
+	float height1;
 
 };
 

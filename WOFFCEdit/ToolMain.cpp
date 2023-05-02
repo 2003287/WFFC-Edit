@@ -1,4 +1,7 @@
 #include "ToolMain.h"
+
+#include <afxwin.h>
+
 #include "resource.h"
 #include <vector>
 #include <sstream>
@@ -9,7 +12,7 @@ ToolMain::ToolMain()
 {
 
 	m_currentChunk = 0;		//default value
-	m_selectedObject = 0;	//initial selection ID
+	m_selectedObject = -1;	//initial selection ID
 	m_sceneGraph.clear();	//clear the vector for the scenegraph
 	m_databaseConnection = NULL;
 
@@ -18,6 +21,16 @@ ToolMain::ToolMain()
 	m_toolInputCommands.back		= false;
 	m_toolInputCommands.left		= false;
 	m_toolInputCommands.right		= false;
+	m_toolInputCommands.fDown = false;
+	m_toolInputCommands.mouse_old_x = 0;
+	m_toolInputCommands.mouse_old_y = 0;
+	m_toolInputCommands.mouse_x = 0;
+	m_toolInputCommands.mouse_y = 0;
+	m_toolInputCommands.testingscroll = 0;
+	m_toolInputCommands.canscroll = true;
+
+	m_toolInputCommands.mouse_rb_down = false;
+	m_toolInputCommands.mouse_lb_down = false;
 	
 }
 
@@ -288,11 +301,23 @@ void ToolMain::Tick(MSG *msg)
 		//resend scenegraph to Direct X renderer
 
 	//Renderer Update Call
+	if(m_toolInputCommands.mouse_rb_down)
+	{
+		m_selectedObject = m_d3dRenderer.MousePicking(m_selectedObject);
+		m_toolInputCommands.mouse_rb_down = false;
+
+	}
+
 	m_d3dRenderer.Tick(&m_toolInputCommands);
+	m_toolInputCommands.canscroll = true;
+	m_toolInputCommands.testcamera = false;
+	m_toolInputCommands.shiftDown = false;
+
 }
 
 void ToolMain::UpdateInput(MSG * msg)
 {
+	
 
 	switch (msg->message)
 	{
@@ -306,12 +331,38 @@ void ToolMain::UpdateInput(MSG * msg)
 		break;
 
 	case WM_MOUSEMOVE:
-		break;
+		m_toolInputCommands.mouse_old_x = m_toolInputCommands.mouse_x;
+		m_toolInputCommands.mouse_old_y = m_toolInputCommands.mouse_y;
 
+		m_toolInputCommands.mouse_x = GET_X_LPARAM(msg->lParam);
+		m_toolInputCommands.mouse_y = GET_Y_LPARAM(msg->lParam);
+		m_toolInputCommands.testcamera = true;
+		break;
+		
+	case WM_MOUSEWHEEL:
+		if(m_toolInputCommands.canscroll)
+		{
+			m_toolInputCommands.testingscroll = GET_WHEEL_DELTA_WPARAM(msg->wParam);
+			m_toolInputCommands.canscroll = false;
+		}				
+		break;
+		
 	case WM_LBUTTONDOWN:	//mouse button down,  you will probably need to check when its up too
 		//set some flag for the mouse button in inputcommands
+		m_toolInputCommands.mouse_lb_down = true;
 		break;
-
+	case WM_LBUTTONUP:
+		m_toolInputCommands.mouse_lb_down = false;
+		break;
+	case WM_RBUTTONDOWN:
+		m_toolInputCommands.mouse_rb_down = true;
+		break;
+	case WM_RBUTTONUP:
+		m_toolInputCommands.mouse_rb_down = false;
+		break;
+	case MK_SHIFT:
+		m_toolInputCommands.shiftDown = true;
+		break;
 	}
 	//here we update all the actual app functionality that we want.  This information will either be used int toolmain, or sent down to the renderer (Camera movement etc
 	//WASD movement
@@ -349,5 +400,11 @@ void ToolMain::UpdateInput(MSG * msg)
 	}
 	else m_toolInputCommands.rotLeft = false;
 
+	
+	if (m_keyArray['F'])
+	{
+		m_toolInputCommands.fDown = true;
+	}
+	else m_toolInputCommands.fDown = false;
 	//WASD
 }
