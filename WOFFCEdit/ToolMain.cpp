@@ -52,7 +52,7 @@ void ToolMain::onActionInitialise(HWND handle, int width, int height)
 	//window size, handle etc for directX
 	m_width		= width;
 	m_height	= height;
-	
+	m_toolHandle = handle;
 	m_d3dRenderer.Initialize(handle, m_width, m_height);
 
 	//database connection establish
@@ -312,7 +312,7 @@ void ToolMain::Tick(MSG *msg)
 	m_toolInputCommands.canscroll = true;
 	m_toolInputCommands.testcamera = false;
 	m_toolInputCommands.shiftDown = false;
-
+	
 }
 
 void ToolMain::UpdateInput(MSG * msg)
@@ -362,6 +362,13 @@ void ToolMain::UpdateInput(MSG * msg)
 		break;
 	case MK_SHIFT:
 		m_toolInputCommands.shiftDown = true;
+		break;
+	case WM_MOUSELEAVE:
+		m_toolInputCommands.canscroll = true;
+		m_toolInputCommands.testcamera = false;
+		m_toolInputCommands.shiftDown = false;
+		m_toolInputCommands.mouse_rb_down = false;
+		m_toolInputCommands.mouse_lb_down = false;
 		break;
 	}
 	//here we update all the actual app functionality that we want.  This information will either be used int toolmain, or sent down to the renderer (Camera movement etc

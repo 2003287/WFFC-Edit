@@ -11,6 +11,7 @@
 #include "DisplayChunk.h"
 #include "ChunkObject.h"
 #include "InputCommands.h"
+#include "Camera.h"
 #include <vector>
 
 
@@ -128,7 +129,7 @@ private:
     DirectX::SimpleMath::Matrix                                             m_projection;
 	float width1;
 	float height1;
-
+	Camera                                                                  m_camera;
 };
 
 std::wstring StringToWCHART(std::string s);

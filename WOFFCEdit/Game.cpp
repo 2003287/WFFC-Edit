@@ -84,6 +84,7 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_deviceResources->CreateWindowSizeDependentResources();
     CreateWindowSizeDependentResources();
+	m_camera.Initialise(width,height);
 	GetClientRect(window,&m_ScreenDimensions);
 
 #ifdef DXTK_AUDIO
@@ -142,12 +143,13 @@ void Game::Tick(InputCommands *Input)
 // Updates the world.
 void Game::Update(DX::StepTimer const& timer)
 {
+	
 	//TODO  any more complex than this, and the camera should be abstracted out to somewhere else
 	//camera motion is on a plane, so kill the 7 component of the look direction
 	Vector3 planarMotionVector = m_camLookDirection;
 	planarMotionVector.y = 0.0;
 	Vector3 TestTarget = Vector3(0.0f,1.0f,0.0f);
-	if (m_InputCommands.rotRight)
+	/*if (m_InputCommands.rotRight)
 	{
 		m_camOrientation.x -= m_camRotRate;
 	}
@@ -157,17 +159,17 @@ void Game::Update(DX::StepTimer const& timer)
 	}
 	
 	float test = m_InputCommands.mouse_x - m_InputCommands.mouse_old_x;
-	float tper = test * ((2 * 3.014) / width1);
+	float tper = test * ((2 * 3.1415) / width1);//position in width of screen space
 	float testy = m_InputCommands.mouse_y - m_InputCommands.mouse_old_y;
-	float tpery = testy * (3.014 / height1);
+	float tpery = testy * (3.1415 / height1); 
 	if(m_InputCommands.mouse_lb_down && m_InputCommands.testcamera)
 	{
 		
-		if (test >2)
+		if (test >1)
 		{
 			m_camOrientation.y += m_camRotRate * tper * 25.0f;
 		}
-		else if(test < -2)
+		else if(test < -1)
 		{
 			m_camOrientation.y += m_camRotRate * tper*25.0f;
 		}
@@ -183,7 +185,7 @@ void Game::Update(DX::StepTimer const& timer)
 		}
 		m_InputCommands.testcamera = false;
 	}
-	/*if (m_camOrientation.x >= 90)
+	if (m_camOrientation.x >= 90)
 	{
 		m_camOrientation.x = 89;
 	}
@@ -191,7 +193,7 @@ void Game::Update(DX::StepTimer const& timer)
 	{
 		m_camOrientation.x = -89;
 
-	}*/
+	}
 
 	//create look direction from Euler angles in m_camOrientation
 	m_camLookDirection.x = cos((m_camOrientation.y)*3.1415 / 180) * cos((m_camOrientation.x) * 3.1415 / 180);
@@ -224,25 +226,26 @@ void Game::Update(DX::StepTimer const& timer)
 	if(m_InputCommands.fDown && m_InputCommands.mouse_lb_down)
 	{
 		
-		m_camPosition = m_camLookDirection * m_movespeed + m_camLookAt;		
+		//m_camPosition = m_camLookDirection * m_movespeed + m_camLookAt;		
 	}
 	else
 	{
-		m_camLookAt = m_camPosition + m_camLookDirection;
+		
 	}
 	
-
-
+	//m_camPosition = m_camLookDirection * m_movespeed + m_camLookAt;
+	m_camLookAt = m_camPosition + m_camLookDirection;
 	
 	
 	m_InputCommands.testingscroll = 0;
-	m_InputCommands.canscroll = true;
+	m_InputCommands.canscroll = true;*/
 	//update lookat point
 	//
-	//
+	///
+	m_camera.Update(&m_InputCommands);
 
 	//apply camera vectors
-    m_view = Matrix::CreateLookAt(m_camPosition, m_camLookAt, Vector3::UnitY);
+	m_view = m_camera.GetView();
    // m_view = Matrix::CreateLookAt(m_camPosition, TestTarget, Vector3::UnitY);
 
     m_batchEffect->SetView(m_view);

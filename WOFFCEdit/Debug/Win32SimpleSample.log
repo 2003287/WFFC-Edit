@@ -1,73 +1,76 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Win32SimpleSample.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Win32SimpleSample.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Camera.cpp
+M:\GitHub\WFFC-Edit\WOFFCEdit\Camera.cpp(60,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Camera.cpp(62,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Camera.cpp(97,66): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Camera.cpp(99,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Camera.cpp(100,66): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   DisplayChunk.cpp
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\DisplayChunk.cpp(14,50): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\DisplayChunk.cpp(15,49): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\DisplayChunk.cpp(74,185): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\DisplayChunk.cpp(74,81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\DisplayChunk.cpp(94,10): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\DisplayChunk.cpp(152,10): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\DisplayChunk.cpp(189,30): warning C4101: 'index4': unreferenced local variable
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\DisplayChunk.cpp(189,14): warning C4101: 'index2': unreferenced local variable
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\DisplayChunk.cpp(189,22): warning C4101: 'index3': unreferenced local variable
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\DisplayChunk.cpp(189,6): warning C4101: 'index1': unreferenced local variable
+M:\GitHub\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(14,50): warning C4305: '=': truncation from 'double' to 'float'
+M:\GitHub\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(15,49): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(74,185): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(74,81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(94,10): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+M:\GitHub\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(152,10): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+M:\GitHub\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(189,30): warning C4101: 'index4': unreferenced local variable
+M:\GitHub\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(189,14): warning C4101: 'index2': unreferenced local variable
+M:\GitHub\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(189,22): warning C4101: 'index3': unreferenced local variable
+M:\GitHub\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(189,6): warning C4101: 'index1': unreferenced local variable
   Game.cpp
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(28,20): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(80,11): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(81,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(160,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(162,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(197,64): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(199,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(200,65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(334,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(333,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(332,97): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(306,10): warning C4101: 'Buffer': unreferenced local variable
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(368,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(376,46): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(375,147): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(375,98): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(382,111): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(382,85): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(384,109): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(384,83): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Game.cpp(391,21): warning C4018: '<': signed/unsigned mismatch
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(28,20): warning C4305: '=': truncation from 'double' to 'float'
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(80,11): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(81,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(87,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(87,22): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(337,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(336,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(335,97): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(309,10): warning C4101: 'Buffer': unreferenced local variable
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(371,20): warning C4018: '<': signed/unsigned mismatch
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(379,46): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(378,147): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(378,98): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(385,111): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(385,85): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(387,109): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(387,83): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\Game.cpp(394,21): warning C4018: '<': signed/unsigned mismatch
+  Main.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
   MFCFrame.cpp
   _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
   MFCMain.cpp
   _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
-  Main.cpp
-  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
   ToolMain.cpp
   _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(104,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(105,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(106,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(107,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(108,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(109,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(110,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(111,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(112,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(124,48): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(125,48): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(126,48): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(130,48): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(131,47): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(132,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(136,50): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(137,50): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(147,57): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(148,57): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(149,57): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(150,58): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(151,58): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(152,58): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(153,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(154,56): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(155,54): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(156,57): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(337,33): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\ToolMain.cpp(338,33): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(104,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(105,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(106,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(107,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(108,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(109,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(110,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(111,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(112,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(124,48): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(125,48): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(126,48): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(130,48): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(131,47): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(132,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(136,50): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(137,50): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(147,57): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(148,57): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(149,57): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(150,58): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(151,58): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(152,58): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(153,59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(154,56): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(155,54): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(156,57): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(337,33): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+M:\GitHub\WFFC-Edit\WOFFCEdit\ToolMain.cpp(338,33): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Generating Code...
-  Win32SimpleSample.vcxproj -> C:\Users\liamr\OneDrive\Desktop\WFFC-Edit-master\WOFFCEdit\Debug\WoFEdit.exe
+  Win32SimpleSample.vcxproj -> M:\GitHub\WFFC-Edit\WOFFCEdit\Debug\WoFEdit.exe

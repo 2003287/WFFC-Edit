@@ -1,17 +1,39 @@
 #pragma once
-#include "DeviceResources.h"
-
+//#include "DeviceResources.h"
 #include "pch.h"
+#include "InputCommands.h"
+
+
+#include <SimpleMath.h>
 //#include "DisplayObject.h"
 #include <vector>
 
-class Camera: public DX::IDeviceNotify
+class Camera
 {
 public:
-	void Initialise();
-	void GetView();
-	void GetWorld();
-	void GetProjection();
+	Camera();
+	~Camera();
+	void Initialise(float width, float hieght);
+
+	DirectX::SimpleMath::Matrix  GetView()
+	{
+		return m_view;
+	}
+	DirectX::SimpleMath::Matrix  GetWorld()
+	{
+		return m_world;
+	}
+	DirectX::SimpleMath::Matrix  GetProjection()
+	{
+		return m_projection;
+	}
+
+	void ArcballCamera();
+	//void PosCamera();
+	//void MoveCamera();
+	void Update(InputCommands* input);
+	
+
 
 private:
 	DirectX::SimpleMath::Vector3 m_camPosition;
@@ -25,6 +47,9 @@ private:
 	DirectX::SimpleMath::Matrix                                             m_view;
 	DirectX::SimpleMath::Matrix                                             m_projection;
 
+	//width and height on screen 
+	float m_width;
+	float m_height;
 	
 	
 };
