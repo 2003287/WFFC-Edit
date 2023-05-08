@@ -1,5 +1,6 @@
 #include "MFCMain.h"
 #include "resource.h"
+#include "Testing.h"
 
 
 BEGIN_MESSAGE_MAP(MFCMain, CWinApp)
@@ -7,7 +8,14 @@ BEGIN_MESSAGE_MAP(MFCMain, CWinApp)
 	ON_COMMAND(ID_FILE_SAVETERRAIN, &MFCMain::MenuFileSaveTerrain)
 	ON_COMMAND(ID_EDIT_SELECT, &MFCMain::MenuEditSelect)
 	ON_COMMAND(ID_BUTTON40001,	&MFCMain::ToolBarButton1)
+	ON_COMMAND(ARC_BALL_CAM, &MFCMain::CameraButton2)
+	ON_COMMAND(MOV_CAM, &MFCMain::CameraButton1)
+    ON_BN_CLICKED(ID_MODESWITCh, &MFCMain::ModeSwitch)
+    ON_BN_CLICKED(ID_InspecOpen, &MFCMain::OpenInspector)
+	//ON_COMMAND(ID_MODESWITCh, &MFCMain::ModeSwitch)
 	ON_UPDATE_COMMAND_UI(ID_INDICATOR_TOOL, &CMyFrame::OnUpdatePage)
+	
+	
 END_MESSAGE_MAP()
 
 BOOL MFCMain::InitInstance()
@@ -100,6 +108,7 @@ void MFCMain::MenuEditSelect()
 	//modeless dialogue must be declared in the class.   If we do local it will go out of scope instantly and destroy itself
 	m_ToolSelectDialogue.Create(IDD_DIALOG1);	//Start up modeless
 	m_ToolSelectDialogue.ShowWindow(SW_SHOW);	//show modeless
+	
 	m_ToolSelectDialogue.SetObjectData(&m_ToolSystem.m_sceneGraph, &m_ToolSystem.m_selectedObject);
 }
 
@@ -108,6 +117,39 @@ void MFCMain::ToolBarButton1()
 	
 	m_ToolSystem.onActionSave();
 }
+
+void MFCMain::CameraButton1()
+{
+	m_ToolSystem.Camera_Update((1));
+}
+
+void MFCMain::CameraButton2()
+{
+	m_ToolSystem.Camera_Update((2));
+}
+
+void MFCMain::ModeSwitch()
+{
+	m_ToolSystem.GameModeSwitch();
+	
+}
+
+void MFCMain::OpenInspector()
+{
+	if(m_ToolSystem.m_selectedObject != -1)
+	{
+		m_Inspector.SetObjectData(&m_ToolSystem.m_sceneGraph, &m_ToolSystem.m_selectedObject, &m_ToolSystem.m_toolInputCommands);
+		m_Inspector.Create(IDD_DIALOG2);	//Start up modeless
+		m_Inspector.ShowWindow(SW_SHOW);	//show modeless
+		//m_Inspector.SetObjectData(&m_ToolSystem.m_sceneGraph, &m_ToolSystem.m_selectedObject);
+		m_ToolSystem.GameModeSet(2);
+
+	}
+	
+	//m_ToolSelectDialogue.SetObjectData(&m_ToolSystem.m_sceneGraph, &m_ToolSystem.m_selectedObject);
+}
+
+
 
 
 MFCMain::MFCMain()

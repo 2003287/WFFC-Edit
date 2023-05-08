@@ -2,7 +2,7 @@
 //#include "DeviceResources.h"
 #include "pch.h"
 #include "InputCommands.h"
-
+#include "StepTimer.h"
 
 #include <SimpleMath.h>
 //#include "DisplayObject.h"
@@ -27,20 +27,27 @@ public:
 	{
 		return m_projection;
 	}
-
+	void SetDistance(DirectX::SimpleMath::Vector3 position);
 	void ArcballCamera();
 	//void PosCamera();
-	//void MoveCamera();
-	void Update(InputCommands* input);
-	
-
+	void MoveCamera(InputCommands* input);
+	void CameraRotation(InputCommands* m_InputCommands);
+	void PlayerMovement(InputCommands* m_InputCommands);
+	void update(InputCommands* input, DX::StepTimer const& timer);
+	void CreateDistance(DirectX::SimpleMath::Vector3 position,float f, float t);
+	void Lerp(DX::StepTimer const& t);
+	DirectX::SimpleMath::Vector3 m_camLookAt;
+	DirectX::SimpleMath::Vector3 m_distance;
+	DirectX::SimpleMath::Vector3 m_camLookDirection;
+	DirectX::SimpleMath::Vector3 m_camPosition;
 
 private:
-	DirectX::SimpleMath::Vector3 m_camPosition;
+	//DirectX::SimpleMath::Vector3 m_camPosition;
 	DirectX::SimpleMath::Vector3 m_camOrientation;
-	DirectX::SimpleMath::Vector3 m_camLookAt;
-	DirectX::SimpleMath::Vector3 m_camLookDirection;
+	//DirectX::SimpleMath::Vector3 m_camLookAt;
+	//DirectX::SimpleMath::Vector3 m_camLookDirection;
 	DirectX::SimpleMath::Vector3 m_camRight;
+	
 	
 	float m_camRotRate;
 	DirectX::SimpleMath::Matrix                                             m_world;
@@ -50,7 +57,14 @@ private:
 	//width and height on screen 
 	float m_width;
 	float m_height;
-	
-	
+	DirectX::SimpleMath::Vector3   m_from;
+	DirectX::SimpleMath::Vector3   m_towards;
+
+	float lerp;
+	float LerpRemaining;
+	float m_movespeed;
+	bool  rot_towards;
+	bool distset;
 };
+
 

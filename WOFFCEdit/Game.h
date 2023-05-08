@@ -23,7 +23,7 @@ public:
 
 	Game();
 	~Game();
-
+	void Testing(SceneObject* t, int i);
 	// Initialization and management
 	void Initialize(HWND window, int width, int height);
 	void SetGridState(bool state);
@@ -38,7 +38,7 @@ public:
 	// IDeviceNotify
 	virtual void OnDeviceLost() override;
 	virtual void OnDeviceRestored() override;
-
+	void ArcballCreation();
 	// Messages
 	void OnActivated();
 	void OnDeactivated();
@@ -129,6 +129,7 @@ private:
     DirectX::SimpleMath::Matrix                                             m_projection;
 	float width1;
 	float height1;
+	float t;
 	Camera                                                                  m_camera;
 };
 

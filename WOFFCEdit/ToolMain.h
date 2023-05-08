@@ -21,16 +21,20 @@ public: //methods
 	void	onActionFocusCamera();
 	void	onActionLoad();													//load the current chunk
 	afx_msg	void	onActionSave();											//save the current chunk
-	afx_msg void	onActionSaveTerrain();									//save chunk geometry
-
+	afx_msg void	onActionSaveTerrain();
+	afx_msg void	GameModeSwitch();
+	afx_msg void	GameModeSet(int i);
+	
+	//save chunk geometry
+	void    Camera_Update(int i);
 	void	Tick(MSG *msg);
 	void	UpdateInput(MSG *msg);
-
+	
 public:	//variables
 	std::vector<SceneObject>    m_sceneGraph;	//our scenegraph storing all the objects in the current chunk
 	ChunkObject					m_chunk;		//our landscape chunk
 	int m_selectedObject;						//ID of current Selection
-
+	InputCommands m_toolInputCommands;
 private:	//methods
 	void	onContentAdded();
 
@@ -39,7 +43,7 @@ private:	//methods
 private:	//variables
 	HWND	m_toolHandle;		//Handle to the  window
 	Game	m_d3dRenderer;		//Instance of D3D rendering system for our tool
-	InputCommands m_toolInputCommands;		//input commands that we want to use and possibly pass over to the renderer
+			//input commands that we want to use and possibly pass over to the renderer
 	CRect	WindowRECT;		//Window area rectangle. 
 	char	m_keyArray[256];
 	sqlite3 *m_databaseConnection;	//sqldatabase handle

@@ -27,6 +27,7 @@ Game::Game()
 	//functional
 	m_movespeed = 0.30;
 	m_camRotRate = 3.0;
+	t = 0;
 
 	//camera
 	m_camPosition.x = 0.0f;
@@ -64,6 +65,14 @@ Game::~Game()
         m_audEngine->Suspend();
     }
 #endif
+}
+
+void Game::Testing(SceneObject* scene,int i)
+{
+	m_displayList.at(i).m_position = Vector3(scene->posX,scene->posY,scene->posZ);
+	m_displayList.at(i).m_orientation = Vector3(scene->rotX,scene->rotY,scene->rotZ);
+	m_displayList.at(i).m_scale = Vector3(scene->scaX,scene->scaY,scene->scaZ);
+	t = scene->posX;
 }
 
 // Initialize the Direct3D resources required to run.
@@ -149,106 +158,17 @@ void Game::Update(DX::StepTimer const& timer)
 	Vector3 planarMotionVector = m_camLookDirection;
 	planarMotionVector.y = 0.0;
 	Vector3 TestTarget = Vector3(0.0f,1.0f,0.0f);
-	/*if (m_InputCommands.rotRight)
-	{
-		m_camOrientation.x -= m_camRotRate;
-	}
-	if (m_InputCommands.rotLeft)
-	{
-		m_camOrientation.x += m_camRotRate;
-	}
 	
-	float test = m_InputCommands.mouse_x - m_InputCommands.mouse_old_x;
-	float tper = test * ((2 * 3.1415) / width1);//position in width of screen space
-	float testy = m_InputCommands.mouse_y - m_InputCommands.mouse_old_y;
-	float tpery = testy * (3.1415 / height1); 
-	if(m_InputCommands.mouse_lb_down && m_InputCommands.testcamera)
-	{
-		
-		if (test >1)
-		{
-			m_camOrientation.y += m_camRotRate * tper * 25.0f;
-		}
-		else if(test < -1)
-		{
-			m_camOrientation.y += m_camRotRate * tper*25.0f;
-		}
-		if (testy > 1)
-		{
-			
-			m_camOrientation.x -= m_camRotRate * tpery * 25.0f;
-		}
-		else if (testy < -1)
-		{
-			
-			m_camOrientation.x -= m_camRotRate * tpery * 25.0f;
-		}
-		m_InputCommands.testcamera = false;
-	}
-	if (m_camOrientation.x >= 90)
-	{
-		m_camOrientation.x = 89;
-	}
-	else if (m_camOrientation.x <= -90)
-	{
-		m_camOrientation.x = -89;
-
-	}
-
-	//create look direction from Euler angles in m_camOrientation
-	m_camLookDirection.x = cos((m_camOrientation.y)*3.1415 / 180) * cos((m_camOrientation.x) * 3.1415 / 180);
-	//m_camLookDirection.x = sin((m_camOrientation.y)*3.1415 / 180); 
-	m_camLookDirection.y = sin((m_camOrientation.x)*3.1415 / 180);
-	m_camLookDirection.z =sin((m_camOrientation.y) * 3.1415 / 180) *cos((m_camOrientation.x)*3.1415 / 180);
-	//m_camLookDirection.z = cos((m_camOrientation.y) * 3.1415 / 180);
-	m_camLookDirection.Normalize();
-	
-	//create right vector from look Direction
-	m_camLookDirection.Cross(Vector3::UnitY, m_camRight);	
-
-	//process input and update stuff
-	if (m_InputCommands.forward)
-	{	
-		m_camPosition += m_camLookDirection*m_movespeed;
-	}
-	if (m_InputCommands.back)
-	{
-		m_camPosition -= m_camLookDirection*m_movespeed;
-	}
-	if (m_InputCommands.right)
-	{
-		m_camPosition += m_camRight*m_movespeed;
-	}
-	if (m_InputCommands.left)
-	{
-		m_camPosition -= m_camRight*m_movespeed;
-	}
-	if(m_InputCommands.fDown && m_InputCommands.mouse_lb_down)
-	{
-		
-		//m_camPosition = m_camLookDirection * m_movespeed + m_camLookAt;		
-	}
-	else
-	{
-		
-	}
-	
-	//m_camPosition = m_camLookDirection * m_movespeed + m_camLookAt;
-	m_camLookAt = m_camPosition + m_camLookDirection;
-	
-	
-	m_InputCommands.testingscroll = 0;
-	m_InputCommands.canscroll = true;*/
 	//update lookat point
 	//
 	///
-	m_camera.Update(&m_InputCommands);
+	m_camera.update(&m_InputCommands,timer);
 
 	//apply camera vectors
 	m_view = m_camera.GetView();
    // m_view = Matrix::CreateLookAt(m_camPosition, TestTarget, Vector3::UnitY);
 
-    m_batchEffect->SetView(m_view);
+    m_batchEffect->SetView(m_camera.GetView());
     m_batchEffect->SetWorld(Matrix::Identity);
 	m_displayChunk.m_terrainEffect->SetView(m_view);
 	m_displayChunk.m_terrainEffect->SetWorld(Matrix::Identity);
@@ -314,11 +234,23 @@ void Game::Render()
 	
 	m_font->DrawString(m_sprites.get(), var1.c_str(), XMFLOAT2(100, 0), Colors::Yellow);
 	//std::wstring var = L"Cam X: " + std::to_wstring(m_camPosition.x) + L"Cam Z: " + std::to_wstring(m_camPosition.z);
-	std::wstring var = L"Cam X: " + std::to_wstring(m_InputCommands.mouse_old_y) + L"Cam Z: " + std::to_wstring(m_InputCommands.mouse_y);
-	if(m_InputCommands.fDown)
+//	std::wstring var = L"Cam X: " + std::to_wstring(m_camera.m_camLookAt.x) + L"Cam Z: " + std::to_wstring(m_camera.m_camLookAt.y)+ L"Cam Z: " + std::to_wstring(m_camera.m_camLookAt.z);
+	std::wstring var = L"Cam X: " + std::to_wstring(m_camera.m_camLookDirection.x) + L"Cam Z: " + std::to_wstring(m_camera.m_camLookDirection.y)+ L"Cam Z: " + std::to_wstring(m_camera.m_camLookDirection.z);
+	std::wstring var2 = L"dist X: " + std::to_wstring(m_camera.m_distance.x) + L"dist Z: " + std::to_wstring(m_camera.m_distance.y)+ L"Cam Z: " + std::to_wstring(m_camera.m_distance.z);
+	std::wstring var3 = L"mPos X: " + std::to_wstring(m_camLookAt.x) + L"Cam Z: " + std::to_wstring(m_camLookAt.y) + L"Cam Z: " + std::to_wstring(m_camLookAt.z);
+	std::wstring var4 = L"Cam X: " + std::to_wstring(m_camera.m_camPosition.x) + L"Cam Z: " + std::to_wstring(m_camera.m_camPosition.y) + L"Cam Z: " + std::to_wstring(m_camera.m_camPosition.z);
+	//if(m_InputCommands.game_mode ==2)
 	{
 		m_font->DrawString(m_sprites.get(), var.c_str(), XMFLOAT2(100, 10), Colors::Yellow);
+		m_font->DrawString(m_sprites.get(), var2.c_str(), XMFLOAT2(100, 50), Colors::Yellow);
+		m_font->DrawString(m_sprites.get(), var3.c_str(), XMFLOAT2(100, 100), Colors::Yellow);
+		m_font->DrawString(m_sprites.get(), var4.c_str(), XMFLOAT2(100, 150), Colors::Yellow);
+
+	
+			
 	}
+		
+	
 	
 	
 	m_sprites->End();
@@ -338,7 +270,7 @@ void Game::Render()
 
 		XMMATRIX local = m_world * XMMatrixTransformation(g_XMZero, Quaternion::Identity, scale, g_XMZero, rotate, translate);
 
-		m_displayList[i].m_model->Draw(context, *m_states, local, m_view, m_projection, false);	//last variable in draw,  make TRUE for wireframe
+		m_displayList[i].m_model->Draw(context, *m_states, local, m_camera.GetView(), m_projection, false);	//last variable in draw,  make TRUE for wireframe
 
 		m_deviceResources->PIXEndEvent();
 	}
@@ -407,14 +339,125 @@ int Game::MousePicking(int select)
 			}
 		}
 	}
-	if(select != -1)
+
+	if(selectedID != -1)
 	{
-		if(select == selectedID)
+		if(select != -1)
 		{
-			return -1;
+			if (select == selectedID)
+			{
+
+				DisplayObject object = m_displayList[selectedID];
+
+				object.m_wireframe = false;
+
+				//object.m_model->Draw() 
+				object.m_model->UpdateEffects([&](IEffect* effect)
+					{
+						auto t = dynamic_cast<BasicEffect*>(effect);
+						//auto fog = dynamic_cast <IEffectFog*>(effect);
+						if (t)
+						{
+							t->SetFogEnabled(false);
+							//t->SetFogStart(0);
+						//	t->SetFogEnd(0);s
+							//t->SetFogColor(Colors::NavajoWhite);
+
+						}
+					});
+
+				return -1;
+
+			}
+			else
+			{
+				//for multi selection
+				//if !multiselect
+				DisplayObject object = m_displayList[select];
+
+				object.m_wireframe = false;
+
+				//object.m_model->Draw() 
+				object.m_model->UpdateEffects([&](IEffect* effect)
+					{
+						auto t = dynamic_cast<BasicEffect*>(effect);
+						//auto fog = dynamic_cast <IEffectFog*>(effect);
+						if (t)
+						{
+							t->SetFogEnabled(false);
+							//t->SetFogStart(0);
+						//	t->SetFogEnd(0);s
+							//t->SetFogColor(Colors::NavajoWhite);
+
+						}
+					});
+			
+			}
 		}
+		
 
 	}
+	else
+	{
+		//if !multiselect
+		if(select !=-1)
+		{
+			DisplayObject object = m_displayList[select];
+
+			object.m_wireframe = false;
+
+			//object.m_model->Draw() 
+			object.m_model->UpdateEffects([&](IEffect* effect)
+				{
+					auto t = dynamic_cast<BasicEffect*>(effect);
+					//auto fog = dynamic_cast <IEffectFog*>(effect);
+					if (t)
+					{
+						t->SetFogEnabled(false);
+						//t->SetFogStart(0);
+					//	t->SetFogEnd(0);s
+						//t->SetFogColor(Colors::NavajoWhite);
+
+					}
+				});
+		}
+		
+	}
+
+		for(int i = 0; i< m_displayList.size();i++)
+		{
+			if (i == selectedID)
+			{
+				DisplayObject object = m_displayList[i];
+
+				object.m_wireframe = true;
+
+				//object.m_model->Draw() 
+				object.m_model->UpdateEffects([&](IEffect* effect)
+					{
+						auto t = dynamic_cast<BasicEffect*>(effect);
+						//auto fog = dynamic_cast <IEffectFog*>(effect);
+						if (t)
+						{
+						//	t->SetDiffuseColor(Colors::NavajoWhite);
+							t->SetFogEnabled(true);
+							t->SetFogStart(0);
+							t->SetFogEnd(0);
+							t->SetFogColor(Colors::NavajoWhite);
+							m_camLookAt = object.m_position;
+						}
+					});
+
+				m_camera.SetDistance(object.m_position);
+				m_camera.CreateDistance(object.m_position,4.0f,0.8f);
+
+			}
+
+		}
+		
+	
+	
+		m_camLookAt.x = selectedID;
 	//if we got a hit.  return it.  
 	return selectedID;
 
@@ -734,6 +777,10 @@ void Game::OnDeviceRestored()
     CreateDeviceDependentResources();
 
     CreateWindowSizeDependentResources();
+}
+void Game::ArcballCreation()
+{
+	//m_camera.CreateDistance(&m_InputCommands);
 }
 #pragma endregion
 

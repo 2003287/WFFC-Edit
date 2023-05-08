@@ -6,7 +6,7 @@
 BEGIN_MESSAGE_MAP(CMyFrame, CFrameWnd)
 	
 	ON_WM_CREATE()
-	ON_UPDATE_COMMAND_UI(ID_INDICATOR_TOOL, &CMyFrame::OnUpdatePage)
+	ON_UPDATE_COMMAND_UI(ID_INDICATOR_TOOL, &CMyFrame::OnUpdatePage)	
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -70,3 +70,5 @@ int CMyFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	return 0;
 }
+
+

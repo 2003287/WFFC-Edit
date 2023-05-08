@@ -9,7 +9,7 @@
 #include "resource.h"
 #include "MFCFrame.h"
 #include "SelectDialogue.h"
-
+#include  "Testing.h"
 
 class MFCMain : public CWinApp 
 {
@@ -26,15 +26,25 @@ private:
 	ToolMain m_ToolSystem;	//Instance of Tool System that we interface to. 
 	CRect WindowRECT;	//Window area rectangle. 
 	SelectDialogue m_ToolSelectDialogue;			//for modeless dialogue, declare it here
+	Inspector m_Inspector;
 
+	CString m_text;
 	int m_width;		
 	int m_height;
+
+
 	
+
+
 	//Interface funtions for menu and toolbar etc requires
 	afx_msg void MenuFileQuit();
 	afx_msg void MenuFileSaveTerrain();
 	afx_msg void MenuEditSelect();
 	afx_msg	void ToolBarButton1();
+	afx_msg	void CameraButton1();
+	afx_msg	void CameraButton2();	
+	afx_msg	void ModeSwitch();	
+	afx_msg	void OpenInspector();	
 
 
 	DECLARE_MESSAGE_MAP()	// required macro for message map functionality  One per class

@@ -14,7 +14,7 @@ ToolMain::ToolMain()
 	m_currentChunk = 0;		//default value
 	m_selectedObject = -1;	//initial selection ID
 	m_sceneGraph.clear();	//clear the vector for the scenegraph
-	m_databaseConnection = NULL;
+	m_databaseConnection = nullptr;
 
 	//zero input commands
 	m_toolInputCommands.forward		= false;
@@ -28,9 +28,13 @@ ToolMain::ToolMain()
 	m_toolInputCommands.mouse_y = 0;
 	m_toolInputCommands.testingscroll = 0;
 	m_toolInputCommands.canscroll = true;
-
+	m_toolInputCommands.cameraMode = 1;
 	m_toolInputCommands.mouse_rb_down = false;
 	m_toolInputCommands.mouse_lb_down = false;
+	m_toolInputCommands.cameraswap = false;
+	m_toolInputCommands.testing_Anything = false;
+	m_toolInputCommands.game_mode = 1;
+	m_toolInputCommands.inspector = false;
 	
 }
 
@@ -57,7 +61,7 @@ void ToolMain::onActionInitialise(HWND handle, int width, int height)
 
 	//database connection establish
 	int rc;
-	rc = sqlite3_open_v2("database/test.db",&m_databaseConnection, SQLITE_OPEN_READWRITE, NULL);
+	rc = sqlite3_open_v2("database/test.db",&m_databaseConnection, SQLITE_OPEN_READWRITE, nullptr);
 
 	if (rc) 
 	{
@@ -83,7 +87,7 @@ void ToolMain::onActionLoad()
 	//SQL
 	int rc;
 	char *sqlCommand;
-	char *ErrMSG = 0;
+	char *ErrMSG = nullptr;
 	sqlite3_stmt *pResults;								//results of the query
 	sqlite3_stmt *pResultsChunk;
 
@@ -91,7 +95,7 @@ void ToolMain::onActionLoad()
 	//prepare SQL Text
 	sqlCommand = "SELECT * from Objects";				//sql command which will return all records from the objects table.
 	//Send Command and fill result object
-	rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand, -1, &pResults, 0 );
+	rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand, -1, &pResults, nullptr );
 	
 	//loop for each row in results until there are no more rows.  ie for every row in the results. We create and object
 	while (sqlite3_step(pResults) == SQLITE_ROW)
@@ -164,7 +168,7 @@ void ToolMain::onActionLoad()
 	//prepare SQL Text
 	sqlCommand = "SELECT * from Chunks";				//sql command which will return all records from  chunks table. There is only one tho.
 														//Send Command and fill result object
-	rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand, -1, &pResultsChunk, 0);
+	rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand, -1, &pResultsChunk, nullptr);
 
 
 	sqlite3_step(pResultsChunk);
@@ -201,14 +205,14 @@ void ToolMain::onActionSave()
 	//SQL
 	int rc;
 	char *sqlCommand;
-	char *ErrMSG = 0;
+	char *ErrMSG = nullptr;
 	sqlite3_stmt *pResults;								//results of the query
 	
 
 	//OBJECTS IN THE WORLD Delete them all
 	//prepare SQL Text
 	sqlCommand = "DELETE FROM Objects";	 //will delete the whole object table.   Slightly risky but hey.
-	rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand, -1, &pResults, 0);
+	rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand, -1, &pResults, nullptr);
 	sqlite3_step(pResults);
 
 	//Populate with our new objects
@@ -279,10 +283,10 @@ void ToolMain::onActionSave()
 
 			<< ")";
 		std::string sqlCommand2 = command.str();
-		rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand2.c_str(), -1, &pResults, 0);
+		rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand2.c_str(), -1, &pResults, nullptr);
 		sqlite3_step(pResults);	
 	}
-	MessageBox(NULL, L"Objects Saved", L"Notification", MB_OK);
+	MessageBox(nullptr, L"Objects Saved", L"Notification", MB_OK);
 }
 
 void ToolMain::onActionSaveTerrain()
@@ -290,11 +294,52 @@ void ToolMain::onActionSaveTerrain()
 	m_d3dRenderer.SaveDisplayChunk(&m_chunk);
 }
 
+void ToolMain::GameModeSwitch()
+{
+	if(m_toolInputCommands.game_mode ==1)
+	{
+		m_toolInputCommands.game_mode = 2;
+	}
+	else
+	{
+		m_toolInputCommands.game_mode = 1;
+	}
+	
+}
+
+void ToolMain::GameModeSet(int i)
+{
+	m_toolInputCommands.game_mode = i;
+}
+
+
+
+void ToolMain::Camera_Update(int i)
+{
+	m_toolInputCommands.cameraMode = i;
+	m_d3dRenderer.ArcballCreation();
+}
+
 void ToolMain::Tick(MSG *msg)
 {
 	//do we have a selection
 	//do we have a mode
 	//are we clicking / dragging /releasing
+	if(m_selectedObject != -1)
+	{
+		//add in a mode
+		if(m_toolInputCommands.game_mode ==2)
+		{
+		//	m_sceneGraph.at(m_selectedObject).posX += 0.05;
+			//will move an object
+			m_d3dRenderer.Testing(&m_sceneGraph.at(m_selectedObject), m_selectedObject);
+		}
+		if(m_toolInputCommands.inspector)
+		{
+			m_d3dRenderer.Testing(&m_sceneGraph.at(m_selectedObject), m_selectedObject);
+			m_toolInputCommands.inspector = false;
+		}
+	}
 	//has something changed
 		//update Scenegraph
 		//add to scenegraph
@@ -307,11 +352,15 @@ void ToolMain::Tick(MSG *msg)
 		m_toolInputCommands.mouse_rb_down = false;
 
 	}
+	
 
 	m_d3dRenderer.Tick(&m_toolInputCommands);
+	
 	m_toolInputCommands.canscroll = true;
-	m_toolInputCommands.testcamera = false;
+	m_toolInputCommands.mouse_moving = false;
 	m_toolInputCommands.shiftDown = false;
+
+	
 	
 }
 
@@ -336,7 +385,7 @@ void ToolMain::UpdateInput(MSG * msg)
 
 		m_toolInputCommands.mouse_x = GET_X_LPARAM(msg->lParam);
 		m_toolInputCommands.mouse_y = GET_Y_LPARAM(msg->lParam);
-		m_toolInputCommands.testcamera = true;
+		m_toolInputCommands.mouse_moving = true;
 		break;
 		
 	case WM_MOUSEWHEEL:
@@ -346,13 +395,16 @@ void ToolMain::UpdateInput(MSG * msg)
 			m_toolInputCommands.canscroll = false;
 		}				
 		break;
-		
+	case CTRL_C_EVENT:
+		m_toolInputCommands.testing_Anything = true;
+		break;
 	case WM_LBUTTONDOWN:	//mouse button down,  you will probably need to check when its up too
 		//set some flag for the mouse button in inputcommands
 		m_toolInputCommands.mouse_lb_down = true;
+		
 		break;
 	case WM_LBUTTONUP:
-		m_toolInputCommands.mouse_lb_down = false;
+		m_toolInputCommands.mouse_lb_down = false;		
 		break;
 	case WM_RBUTTONDOWN:
 		m_toolInputCommands.mouse_rb_down = true;
@@ -365,7 +417,7 @@ void ToolMain::UpdateInput(MSG * msg)
 		break;
 	case WM_MOUSELEAVE:
 		m_toolInputCommands.canscroll = true;
-		m_toolInputCommands.testcamera = false;
+		m_toolInputCommands.mouse_moving = false;
 		m_toolInputCommands.shiftDown = false;
 		m_toolInputCommands.mouse_rb_down = false;
 		m_toolInputCommands.mouse_lb_down = false;
@@ -410,8 +462,11 @@ void ToolMain::UpdateInput(MSG * msg)
 	
 	if (m_keyArray['F'])
 	{
-		m_toolInputCommands.fDown = true;
+		m_toolInputCommands.fDown = true;		
 	}
-	else m_toolInputCommands.fDown = false;
+	else
+	{
+		m_toolInputCommands.fDown = false;		
+	}
 	//WASD
 }
