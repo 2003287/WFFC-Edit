@@ -40,6 +40,7 @@ public:
 	virtual void OnDeviceRestored() override;
 	void ArcballCreation(SceneObject* t, int i);
 	void DeleteObject(int i);
+	void AddToList(SceneObject t);
 	// Messages
 	void OnActivated();
 	void OnDeactivated();

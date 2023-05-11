@@ -35,7 +35,12 @@ struct InputCommands
 	//for testing before an object
 	bool testing_Anything;
 
-	bool paste;
-	bool Zoom;
+
+	//copy paste and delete
+	bool copyNum;
+	bool copyFirst;
+	bool paste;	
 	bool delObject;
+
+	bool Zoom;
 };

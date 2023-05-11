@@ -14,6 +14,8 @@ BEGIN_MESSAGE_MAP(MFCMain, CWinApp)
     ON_BN_CLICKED(ID_InspecOpen, &MFCMain::OpenInspector)
     ON_BN_CLICKED(ID_ZOOM, &MFCMain::Zoom)
     ON_BN_CLICKED(ID_DELOBJECT, &MFCMain::DeleteObject)
+    ON_BN_CLICKED(ID_COPY, &MFCMain::CopyObject)
+    ON_BN_CLICKED(ID_BUTTONPASTE, &MFCMain::PasteObject)
 	//ON_COMMAND(ID_MODESWITCh, &MFCMain::ModeSwitch)
 	ON_UPDATE_COMMAND_UI(ID_INDICATOR_TOOL, &CMyFrame::OnUpdatePage)
 	
@@ -165,6 +167,24 @@ void MFCMain::DeleteObject()
 	{
 		m_ToolSystem.m_toolInputCommands.delObject = true;
 	}
+}
+
+void MFCMain::CopyObject()
+{
+	if (m_ToolSystem.m_selectedObject != -1)
+	{
+		m_ToolSystem.m_toolInputCommands.copyNum = true;
+	}
+}
+
+void MFCMain::PasteObject()
+{
+
+	if (m_ToolSystem.m_toolInputCommands.copyFirst)
+	{
+		m_ToolSystem.m_toolInputCommands.paste = true;
+	}
+
 }
 
 

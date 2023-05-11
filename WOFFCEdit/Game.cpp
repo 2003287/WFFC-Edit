@@ -786,6 +786,70 @@ void Game::DeleteObject(int i)
 {
 	m_displayList.erase(m_displayList.begin()+ i);
 }
+void Game::AddToList(SceneObject t)
+{
+	auto device = m_deviceResources->GetD3DDevice();
+	auto devicecontext = m_deviceResources->GetD3DDeviceContext();
+	DisplayObject newDisplayObject;
+
+	//load model
+	std::wstring modelwstr = StringToWCHART(t.model_path);							//convect string to Wchar
+	newDisplayObject.m_model = Model::CreateFromCMO(device, modelwstr.c_str(), *m_fxFactory, true);	//get DXSDK to load model "False" for LH coordinate system (maya)
+
+	//Load Texture
+	std::wstring texturewstr = StringToWCHART(t.tex_diffuse_path);								//convect string to Wchar
+	HRESULT rs;
+	rs = CreateDDSTextureFromFile(device, texturewstr.c_str(), nullptr, &newDisplayObject.m_texture_diffuse);	//load tex into Shader resource
+
+	//if texture fails.  load error default
+	if (rs)
+	{
+		CreateDDSTextureFromFile(device, L"database/data/Error.dds", nullptr, &newDisplayObject.m_texture_diffuse);	//load tex into Shader resource
+	}
+
+	//apply new texture to models effect
+	newDisplayObject.m_model->UpdateEffects([&](IEffect* effect) //This uses a Lambda function,  if you dont understand it: Look it up.
+		{
+			auto lights = dynamic_cast<BasicEffect*>(effect);
+			if (lights)
+			{
+				lights->SetTexture(newDisplayObject.m_texture_diffuse);
+			}
+		});
+
+	//set position
+	newDisplayObject.m_position.x = t.posX;
+	newDisplayObject.m_position.y = t.posY;
+	newDisplayObject.m_position.z = t.posZ;
+
+	//setorientation
+	newDisplayObject.m_orientation.x =t.rotX;
+	newDisplayObject.m_orientation.y = t.rotY;
+	newDisplayObject.m_orientation.z = t.rotZ;
+
+	//set scale
+	newDisplayObject.m_scale.x =t.scaX;
+	newDisplayObject.m_scale.y = t.scaY;
+	newDisplayObject.m_scale.z = t.scaZ;
+
+	//set wireframe / render flags
+	newDisplayObject.m_render = t.editor_render;
+	newDisplayObject.m_wireframe = t.editor_wireframe;
+
+	newDisplayObject.m_light_type = t.light_type;
+	newDisplayObject.m_light_diffuse_r = t.light_diffuse_r;
+	newDisplayObject.m_light_diffuse_g = t.light_diffuse_g;
+	newDisplayObject.m_light_diffuse_b = t.light_diffuse_b;
+	newDisplayObject.m_light_specular_r = t.light_specular_r;
+	newDisplayObject.m_light_specular_g = t.light_specular_g;
+	newDisplayObject.m_light_specular_b = t.light_specular_b;
+	newDisplayObject.m_light_spot_cutoff = t.light_spot_cutoff;
+	newDisplayObject.m_light_constant = t.light_constant;
+	newDisplayObject.m_light_linear = t.light_linear;
+	newDisplayObject.m_light_quadratic = t.light_quadratic;
+
+	m_displayList.push_back(newDisplayObject);
+}
 #pragma endregion
 
 std::wstring StringToWCHART(std::string s)

@@ -268,7 +268,11 @@ void Camera::CreateDistance(Vector3 position, float f, float t)
 		dist -= f;
 	else
 	{
-		dist += f;
+		lerp = 0;
+		LerpRemaining = 0;
+		m_from = Vector3();
+		m_towards = Vector3();
+		return;
 	}
 
 	lerp = t;

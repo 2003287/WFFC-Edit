@@ -15,6 +15,8 @@ ToolMain::ToolMain()
 	m_selectedObject = -1;	//initial selection ID
 	m_sceneGraph.clear();	//clear the vector for the scenegraph
 	m_databaseConnection = nullptr;
+	m_sceneObject = SceneObject();
+	m_sceneObject.ID = -1;
 
 	//zero input commands
 	m_toolInputCommands.forward		= false;
@@ -39,6 +41,8 @@ ToolMain::ToolMain()
 	m_toolInputCommands.paste = false;
 	m_toolInputCommands.Zoom = false;
 	m_toolInputCommands.delObject = false;
+	m_toolInputCommands.copyNum = false;
+	m_toolInputCommands.copyFirst = false;
 	
 }
 
@@ -349,6 +353,30 @@ void ToolMain::Tick(MSG *msg)
 			m_d3dRenderer.ZoomOnObject(m_selectedObject);
 			m_toolInputCommands.Zoom = false;
 		}
+
+		if (m_toolInputCommands.copyNum)
+		{
+			m_sceneObject = m_sceneGraph.at(m_selectedObject);
+			m_toolInputCommands.copyNum = false;
+			m_toolInputCommands.copyFirst = true;
+			
+		}
+
+		
+	}
+
+	if (m_toolInputCommands.paste)
+	{
+		//add to m_sceneGraph
+		if (m_sceneObject.ID != -1)
+		{
+			m_sceneObject.ID = m_sceneGraph.at(m_sceneGraph.size() - 1).ID += 1;
+			m_sceneGraph.push_back(m_sceneObject);
+			m_d3dRenderer.AddToList(m_sceneObject);
+		}
+		//add to m_display objects
+		m_toolInputCommands.paste = false;
+
 	}
 
 	//delete and object
