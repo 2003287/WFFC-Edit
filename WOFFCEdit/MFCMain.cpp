@@ -13,6 +13,7 @@ BEGIN_MESSAGE_MAP(MFCMain, CWinApp)
     ON_BN_CLICKED(ID_MODESWITCh, &MFCMain::ModeSwitch)
     ON_BN_CLICKED(ID_InspecOpen, &MFCMain::OpenInspector)
     ON_BN_CLICKED(ID_ZOOM, &MFCMain::Zoom)
+    ON_BN_CLICKED(ID_DELOBJECT, &MFCMain::DeleteObject)
 	//ON_COMMAND(ID_MODESWITCh, &MFCMain::ModeSwitch)
 	ON_UPDATE_COMMAND_UI(ID_INDICATOR_TOOL, &CMyFrame::OnUpdatePage)
 	
@@ -155,6 +156,14 @@ void MFCMain::Zoom()
 	if (m_ToolSystem.m_selectedObject != -1)
 	{
 		m_ToolSystem.m_toolInputCommands.Zoom = true;
+	}
+}
+
+void MFCMain::DeleteObject()
+{
+	if (m_ToolSystem.m_selectedObject != -1)
+	{
+		m_ToolSystem.m_toolInputCommands.delObject = true;
 	}
 }
 

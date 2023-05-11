@@ -37,4 +37,5 @@ struct InputCommands
 
 	bool paste;
 	bool Zoom;
+	bool delObject;
 };

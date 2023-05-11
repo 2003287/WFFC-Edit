@@ -38,7 +38,8 @@ public:
 	// IDeviceNotify
 	virtual void OnDeviceLost() override;
 	virtual void OnDeviceRestored() override;
-	void ArcballCreation();
+	void ArcballCreation(SceneObject* t, int i);
+	void DeleteObject(int i);
 	// Messages
 	void OnActivated();
 	void OnDeactivated();

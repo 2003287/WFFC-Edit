@@ -360,9 +360,7 @@ int Game::MousePicking(int select)
 						if (t)
 						{
 							t->SetFogEnabled(false);
-							//t->SetFogStart(0);
-						//	t->SetFogEnd(0);s
-							//t->SetFogColor(Colors::NavajoWhite);
+						
 
 						}
 					});
@@ -382,13 +380,11 @@ int Game::MousePicking(int select)
 				object.m_model->UpdateEffects([&](IEffect* effect)
 					{
 						auto t = dynamic_cast<BasicEffect*>(effect);
-						//auto fog = dynamic_cast <IEffectFog*>(effect);
+					
 						if (t)
 						{
 							t->SetFogEnabled(false);
-							//t->SetFogStart(0);
-						//	t->SetFogEnd(0);s
-							//t->SetFogColor(Colors::NavajoWhite);
+						
 
 						}
 					});
@@ -406,18 +402,14 @@ int Game::MousePicking(int select)
 			DisplayObject object = m_displayList[select];
 
 			object.m_wireframe = false;
-
-			//object.m_model->Draw() 
+			
 			object.m_model->UpdateEffects([&](IEffect* effect)
 				{
 					auto t = dynamic_cast<BasicEffect*>(effect);
-					//auto fog = dynamic_cast <IEffectFog*>(effect);
+					
 					if (t)
 					{
-						t->SetFogEnabled(false);
-						//t->SetFogStart(0);
-					//	t->SetFogEnd(0);s
-						//t->SetFogColor(Colors::NavajoWhite);
+						t->SetFogEnabled(false);					
 
 					}
 				});
@@ -786,9 +778,13 @@ void Game::OnDeviceRestored()
 
     CreateWindowSizeDependentResources();
 }
-void Game::ArcballCreation()
+void Game::ArcballCreation(SceneObject* t, int ts)
 {
-	//m_camera.CreateDistance(&m_InputCommands);
+	m_camera.ArcballCamera(m_displayList.at(ts).m_position,15);
+}
+void Game::DeleteObject(int i)
+{
+	m_displayList.erase(m_displayList.begin()+ i);
 }
 #pragma endregion
 

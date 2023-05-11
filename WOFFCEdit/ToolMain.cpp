@@ -38,6 +38,7 @@ ToolMain::ToolMain()
 
 	m_toolInputCommands.paste = false;
 	m_toolInputCommands.Zoom = false;
+	m_toolInputCommands.delObject = false;
 	
 }
 
@@ -320,7 +321,7 @@ void ToolMain::GameModeSet(int i)
 void ToolMain::Camera_Update(int i)
 {
 	m_toolInputCommands.cameraMode = i;
-	m_d3dRenderer.ArcballCreation();
+	m_d3dRenderer.ArcballCreation(&m_sceneGraph.at(m_selectedObject), m_selectedObject);
 }
 
 void ToolMain::Tick(MSG *msg)
@@ -348,6 +349,20 @@ void ToolMain::Tick(MSG *msg)
 			m_d3dRenderer.ZoomOnObject(m_selectedObject);
 			m_toolInputCommands.Zoom = false;
 		}
+	}
+
+	//delete and object
+	if (m_toolInputCommands.delObject)
+	{
+		if (m_selectedObject != -1)
+		{
+			int i = m_selectedObject;
+			m_sceneGraph.erase(m_sceneGraph.begin() + m_selectedObject);
+			//update visuals maybe
+			m_d3dRenderer.DeleteObject(m_selectedObject);
+			m_selectedObject = -1;
+		}
+		m_toolInputCommands.delObject = false;
 	}
 	//has something changed
 		//update Scenegraph
@@ -431,9 +446,18 @@ void ToolMain::UpdateInput(MSG * msg)
 		m_toolInputCommands.mouse_rb_down = false;
 		m_toolInputCommands.mouse_lb_down = false;
 		break;
+
 	}
 	//here we update all the actual app functionality that we want.  This information will either be used int toolmain, or sent down to the renderer (Camera movement etc
 	//WASD movement
+	
+	if (m_keyArray[VK_DELETE])
+	{
+		if (m_selectedObject != -1)
+		{
+			m_toolInputCommands.delObject = true;
+		}		
+	}
 	if (m_keyArray['W'])
 	{
 		m_toolInputCommands.forward = true;

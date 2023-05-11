@@ -45,6 +45,8 @@ void Camera::Initialise(float width, float Height)
 	m_height = Height;
 	rot_towards = false;
 
+	R = 0.0f;
+
 	lerp = 0;
 	LerpRemaining = 0;
 	m_from = Vector3();
@@ -97,8 +99,11 @@ void Camera::SetDistance(Vector3 position)
 	}
 }
 
-void Camera::ArcballCamera()
+void Camera::ArcballCamera(DirectX::SimpleMath::Vector3 position, int i)
 {
+
+	m_camLookAt = position;
+	R = (float)i;
 	//m_camPosition = m_camLookDirection * m_movespeed + m_camLookAt; //rotation * speed + distance + m_camlookat
 
 }
@@ -154,13 +159,32 @@ void Camera::CameraRotation(InputCommands* m_InputCommands)
 	{
 		MoveCamera(m_InputCommands);
 	}
+
+	if (m_InputCommands->cameraMode == 2)
+	{
+		//create look direction if()from Euler angles in m_camOrientation
+		m_camLookDirection.x = m_camLookAt.x +R* cos((m_camOrientation.y) * 3.1415 / 180) * cos((m_camOrientation.x) * 3.1415 / 180);
+		//m_camLookDirection.x = sin((m_camOrientation.y)*3.1415 / 180); 
+		m_camLookDirection.y = m_camLookAt.y + R*sin((m_camOrientation.x) * 3.1415 / 180);
+		m_camLookDirection.z =m_camLookAt.z + R*sin((m_camOrientation.y) * 3.1415 / 180) * cos((m_camOrientation.x) * 3.1415 / 180);
+		//R += 0.01;
+	}
+	else
+	{
+		m_camLookDirection.x = cos((m_camOrientation.y) * 3.1415 / 180) * cos((m_camOrientation.x) * 3.1415 / 180);
+		//m_camLookDirection.x = sin((m_camOrientation.y)*3.1415 / 180); 
+		m_camLookDirection.y = sin((m_camOrientation.x) * 3.1415 / 180);
+		m_camLookDirection.z = sin((m_camOrientation.y) * 3.1415 / 180) * cos((m_camOrientation.x) * 3.1415 / 180);
+		//m_camLookDirection.z = cos((m_camOrientation.y) * 3.1415 / 180);
+		m_camLookDirection.Normalize();
+
+		//create right vector from look Direction
+		m_camLookDirection.Cross(Vector3::UnitY, m_camRight);
+	}
 	//create look direction if()from Euler angles in m_camOrientation
-	m_camLookDirection.x = cos((m_camOrientation.y) * 3.1415 / 180) * cos((m_camOrientation.x) * 3.1415 / 180);
-	//m_camLookDirection.x = sin((m_camOrientation.y)*3.1415 / 180); 
-	m_camLookDirection.y = sin((m_camOrientation.x) * 3.1415 / 180);
-	m_camLookDirection.z = sin((m_camOrientation.y) * 3.1415 / 180) * cos((m_camOrientation.x) * 3.1415 / 180);
+	
 	//m_camLookDirection.z = cos((m_camOrientation.y) * 3.1415 / 180);
-	m_camLookDirection.Normalize();
+	//m_camLookDirection.Normalize();
 
 	//create right vector from look Direction
 	m_camLookDirection.Cross(Vector3::UnitY, m_camRight);
@@ -219,8 +243,9 @@ void Camera::update(InputCommands* m_InputCommands, DX::StepTimer const& timer)
 	
 	if(m_InputCommands->cameraMode == 2)
 	{
-		Vector3 ts = m_camLookAt + m_distance;
-		m_camPosition = (m_camLookDirection + m_camLookAt);
+		Vector3 ts = m_camLookDirection * m_distance;
+		//m_camPosition = (m_camLookDirection + m_camLookAt) * m_distance;
+		m_camPosition = m_camLookDirection;
 	}
 	else if(m_InputCommands->cameraMode == 1)
 	{
@@ -243,11 +268,7 @@ void Camera::CreateDistance(Vector3 position, float f, float t)
 		dist -= f;
 	else
 	{
-		lerp = 0;
-		LerpRemaining = 0;
-		m_from = Vector3();
-		m_towards = Vector3();
-		return;
+		dist += f;
 	}
 
 	lerp = t;
@@ -261,6 +282,32 @@ void Camera::CreateDistance(Vector3 position, float f, float t)
 	//m_towards 
 
 
+}
+
+void Camera::CreateDistanceArc(DirectX::SimpleMath::Vector3 position, float f, float t)
+{
+
+	distset = true;
+	float dist = Vector3::Distance(m_camPosition, position);
+	if (dist > f)
+		dist -= f;
+	else
+	{
+		lerp = 0;
+		LerpRemaining = 0;
+		m_from = Vector3();
+		m_towards = Vector3();
+		return;
+	}
+
+	lerp = t;
+	LerpRemaining = t;
+	m_from = m_camPosition;
+	Vector3 ts = position - m_camPosition;
+	ts.Normalize();
+	ts = m_camPosition + (dist * ts);
+	m_towards = ts;
+	m_distance = ts * dist;
 }
 
 void Camera::Lerp(DX::StepTimer const& t)

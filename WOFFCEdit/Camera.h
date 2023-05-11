@@ -28,13 +28,14 @@ public:
 		return m_projection;
 	}
 	void SetDistance(DirectX::SimpleMath::Vector3 position);
-	void ArcballCamera();
+	void ArcballCamera(DirectX::SimpleMath::Vector3 position, int i);
 	//void PosCamera();
 	void MoveCamera(InputCommands* input);
 	void CameraRotation(InputCommands* m_InputCommands);
 	void PlayerMovement(InputCommands* m_InputCommands);
 	void update(InputCommands* input, DX::StepTimer const& timer);
 	void CreateDistance(DirectX::SimpleMath::Vector3 position,float f, float t);
+	void CreateDistanceArc(DirectX::SimpleMath::Vector3 position,float f, float t);
 	void Lerp(DX::StepTimer const& t);
 	DirectX::SimpleMath::Vector3 m_camLookAt;
 	DirectX::SimpleMath::Vector3 m_distance;
@@ -57,6 +58,7 @@ private:
 	//width and height on screen 
 	float m_width;
 	float m_height;
+	float R;
 	DirectX::SimpleMath::Vector3   m_from;
 	DirectX::SimpleMath::Vector3   m_towards;
 

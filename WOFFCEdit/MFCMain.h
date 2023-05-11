@@ -46,6 +46,7 @@ private:
 	afx_msg	void ModeSwitch();	
 	afx_msg	void OpenInspector();	
 	afx_msg	void Zoom();	
+	afx_msg	void DeleteObject();	
 
 
 	DECLARE_MESSAGE_MAP()	// required macro for message map functionality  One per class
