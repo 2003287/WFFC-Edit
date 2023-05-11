@@ -35,6 +35,9 @@ ToolMain::ToolMain()
 	m_toolInputCommands.testing_Anything = false;
 	m_toolInputCommands.game_mode = 1;
 	m_toolInputCommands.inspector = false;
+
+	m_toolInputCommands.paste = false;
+	m_toolInputCommands.Zoom = false;
 	
 }
 
@@ -338,6 +341,12 @@ void ToolMain::Tick(MSG *msg)
 		{
 			m_d3dRenderer.Testing(&m_sceneGraph.at(m_selectedObject), m_selectedObject);
 			m_toolInputCommands.inspector = false;
+		}
+
+		if (m_toolInputCommands.Zoom)
+		{
+			m_d3dRenderer.ZoomOnObject(m_selectedObject);
+			m_toolInputCommands.Zoom = false;
 		}
 	}
 	//has something changed

@@ -91,9 +91,9 @@ void Inspector::DoDataExchange(CDataExchange* pDX)
 
 
 	//stop scale becoming zero
-	DDV_MinMaxFloat(pDX, x_sca, 0.01, 10.0);
-	DDV_MinMaxFloat(pDX, y_sca, 0.01, 10.0);
-	DDV_MinMaxFloat(pDX, z_sca, 0.01, 10.0);
+	DDV_MinMaxFloat(pDX, x_sca, 0.2, 10.0);
+	DDV_MinMaxFloat(pDX, y_sca, 0.2, 10.0);
+	DDV_MinMaxFloat(pDX, z_sca, 0.2, 10.0);
 
 	
 }
@@ -222,14 +222,17 @@ void Inspector::OnBnClickedOk()
 		CheckValues();
 		if(!m_input->inspector)
 		{
+			//update the positions 
 			m_sceneGraph->at(current).posX = x_pos;
 			m_sceneGraph->at(current).posY = y_pos;
 			m_sceneGraph->at(current).posZ = z_pos;
 
+			//update the rotation varibles
 			m_sceneGraph->at(current).rotX = x_rot;
 			m_sceneGraph->at(current).rotY = y_rot;
 			m_sceneGraph->at(current).rotZ = z_rot;
 
+			//update the scale varibles
 			m_sceneGraph->at(current).scaX = x_sca;
 			m_sceneGraph->at(current).scaY = y_sca;
 			m_sceneGraph->at(current).scaZ = z_sca;

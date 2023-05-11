@@ -67,6 +67,7 @@ Game::~Game()
 #endif
 }
 
+//update the varibles from the inspector in the scene
 void Game::Testing(SceneObject* scene,int i)
 {
 	m_displayList.at(i).m_position = Vector3(scene->posX,scene->posY,scene->posZ);
@@ -661,6 +662,13 @@ void Game::BuildDisplayChunk(ChunkObject * SceneChunk)
 void Game::SaveDisplayChunk(ChunkObject * SceneChunk)
 {
 	m_displayChunk.SaveHeightMap();			//save heightmap to file.
+}
+
+void Game::ZoomOnObject(int selection)
+{
+	m_camera.SetDistance(m_displayList.at(selection).m_position);
+	m_camera.CreateDistance(m_displayList.at(selection).m_position, 4.0f, 0.8f);
+
 }
 
 #ifdef DXTK_AUDIO
